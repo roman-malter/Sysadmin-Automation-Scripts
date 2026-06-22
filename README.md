@@ -1,26 +1,32 @@
-# System Administration Automation & Checklists
+# System Administration & Infrastructure Automation Portfolio
 
 ## 📋 Project Overview
-This repository contains routine automation scripts and standardized server checklists designed to streamline system administration tasks, reduce human error, and enforce security baselines across both Linux and Windows environments.
-
-## 🚀 Features
-* **Cross-Platform Backups:** Automated scripts for both Bash (Linux) and PowerShell (Windows) that compress and timestamp critical folders.
-* **Server Hardening:** Standard Operating Procedures (SOPs) to secure fresh server deployments.
-* **Log Management:** Automatic cleanup of old log files (coming soon).
+This repository showcases a multi-tier system administration portfolio. It ranges from local routine automation scripts to scalable remote configuration management, demonstrating hands-on experience with cross-platform management and Infrastructure as Code (IaC) principles.
 
 ## 📁 Repository Structure
 ```text
 ├── README.md
 ├── checklists/
 │   └── server-hardening.md  # Standard security configurations
-└── scripts/
-    ├── backup.sh             # Linux automated backup script
-    └── backup.ps1            # Windows PowerShell backup script
+├── scripts/
+│   ├── backup.sh            # Linux automated backup script
+│   └── backup.ps1           # Windows PowerShell backup script
+└── ansible/
+    ├── inventory.ini        # Target server definitions and variables
+    └── webserver.yml        # Playbook for automated Apache deployment
 ```
 
-## 🛠️ Getting Started
+---
 
-### Option A: Linux Deployment (Bash)
+## 🛠️ Project 1: Routine Automation & Checklists
+
+### 🚀 Features
+* **Cross-Platform Backups:** Automated scripts for both Bash (Linux) and PowerShell (Windows) that compress and timestamp critical folders.
+* **Server Hardening:** Standard Operating Procedures (SOPs) checklist to secure fresh server deployments against unauthorized access.
+
+### 💻 Setup & Deployment
+
+#### Option A: Linux Deployment (Bash)
 1. **Prerequisites:** Ubuntu 22.04+ / Debian-based OS with root/sudo access.
 2. **Usage:** Clone the repository, make the script executable, and run it:
    ```bash
@@ -34,7 +40,7 @@ This repository contains routine automation scripts and standardized server chec
    0 0 * * * /path/to/scripts/backup.sh
    ```
 
-### Option B: Windows Deployment (PowerShell)
+#### Option B: Windows Deployment (PowerShell)
 1. **Prerequisites:** Windows Server 2019+ or Windows 10/11 running an Administrator PowerShell terminal.
 2. **Usage:** Clone the repository and run the script (ensure execution policies allow it):
    ```powershell
@@ -46,3 +52,20 @@ This repository contains routine automation scripts and standardized server chec
 3. **Automation:** Configure a **Windows Task Scheduler** task to run daily with the action:
    * **Program:** `powershell.exe`
    * **Arguments:** `-ExecutionPolicy Bypass -File "C:\Path\To\scripts\backup.ps1"`
+
+---
+
+## ⚡ Project 2: Configuration Management (Ansible)
+
+### 🚀 Features
+* **Agentless Automation:** Manages configurations over secure SSH channels without installing software on target nodes.
+* **Idempotency:** Playbooks ensure servers are brought into the desired state without breaking existing operational configurations.
+* **Automated Web Server Provisioning:** Automatically updates server package definitions and deploys functional Apache web hosting infrastructure.
+
+### 🖥️ Setup & Deployment
+1. **Prerequisites:** Linux administration machine with Ansible installed and SSH key access to target hosts.
+2. **Configuration:** Update `ansible/inventory.ini` with your target server IP addresses.
+3. **Usage:** Run the playbook against your host groups to execute all configuration tasks sequentially:
+   ```bash
+   ansible-playbook -i ansible/inventory.ini ansible/webserver.yml
+   ```
